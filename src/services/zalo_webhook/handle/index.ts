@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import process from 'process';
 import { HookDataField } from '@src/dataStruct/hookData';
-import { sendHookData } from '@src/messageQueue/Producer';
+import { sendHookData, sendStringMessage } from '@src/messageQueue/Producer';
 import { getEnv } from '@src/mode';
 import { myEnv } from '@src/mode/type';
 import axios from 'axios';
 
 const VERIFY_TOKEN = process.env.ZALO_VERIFY_TOKEN!;
-const prefix = getEnv() === myEnv.Dev ? '_dev' : '';
+const prefix = getEnv() === myEnv.Dev ? 'dev' : 'dev';
 
 class Handle_Zalo_WebHook {
     getData = async (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ class Handle_Zalo_WebHook {
         console.log('Zalo Webhook Event:', req.body);
         const hookDataBody = req.body as HookDataField;
 
-        sendHookData(`zalo_hook_data_queue${prefix}`, hookDataBody);
+        sendHookData(`zalo_hook_data_queue_${prefix}`, hookDataBody);
 
         res.status(200).json({ received: true });
         return;
@@ -35,6 +35,13 @@ class Handle_Zalo_WebHook {
 
     tokenCallback = async (req: Request, res: Response) => {
         const code = req.query.code as string;
+        const state = req.query.state as string;
+
+        const parts = state.split('@');
+        const appId = parts[0];
+        const appSecret = parts[1];
+        const zaloOaId = [2];
+        const accountId = [3];
 
         if (!code) {
             res.send('No code');
@@ -45,21 +52,26 @@ class Handle_Zalo_WebHook {
             const tokenRes = await axios.post(
                 'https://oauth.zaloapp.com/v4/access_token',
                 new URLSearchParams({
-                    app_id: process.env.ZALO_APP_ID!,
+                    app_id: appId,
                     code,
                     grant_type: 'authorization_code',
                 }),
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        secret_key: process.env.ZALO_SECRET_KEY!,
+                        secret_key: appSecret,
                     },
                 }
             );
 
             const data = tokenRes.data;
 
-            console.log('TOKEN:', data);
+            // console.log('TOKEN:', data);
+
+            sendStringMessage(
+                `refreshTokenZalo_${prefix}`,
+                JSON.stringify({ zaloOaId: zaloOaId, accountId: accountId, token: data })
+            );
 
             res.json(data);
             return;
