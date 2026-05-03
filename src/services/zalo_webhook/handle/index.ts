@@ -40,8 +40,8 @@ class Handle_Zalo_WebHook {
         const parts = state.split('@');
         const appId = parts[0];
         const appSecret = parts[1];
-        const zaloOaId = [2];
-        const accountId = [3];
+        const zaloOaId = parts[2];
+        const accountId = parts[3];
 
         if (!code) {
             res.send('No code');
