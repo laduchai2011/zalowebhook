@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import process from 'process';
 import { HookDataField } from '@src/dataStruct/hookData';
-import { sendHookData, sendStringMessage } from '@src/messageQueue/Producer';
+import { sendHookData } from '@src/messageQueue/Producer';
 import { getEnv } from '@src/mode';
 import { myEnv } from '@src/mode/type';
-import axios from 'axios';
 
 const VERIFY_TOKEN = process.env.ZALO_VERIFY_TOKEN!;
 const prefix = getEnv() === myEnv.Dev ? 'dev' : 'dev';
@@ -35,51 +34,44 @@ class Handle_Zalo_WebHook {
 
     tokenCallback = async (req: Request, res: Response) => {
         const code = req.query.code as string;
-        const state = req.query.state as string;
-
-        const parts = state.split('@');
-        const appId = parts[0];
-        const appSecret = parts[1];
-        const zaloOaId = parts[2];
-        const accountId = parts[3];
 
         if (!code) {
             res.send('No code');
             return;
         }
 
-        try {
-            const tokenRes = await axios.post(
-                'https://oauth.zaloapp.com/v4/access_token',
-                new URLSearchParams({
-                    app_id: appId,
-                    code,
-                    grant_type: 'authorization_code',
-                }),
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        secret_key: appSecret,
-                    },
-                }
-            );
+        res.send(code);
+        return;
 
-            const data = tokenRes.data;
+        // try {
+        //     const tokenRes = await axios.post(
+        //         'https://oauth.zaloapp.com/v4/access_token',
+        //         new URLSearchParams({
+        //             app_id: appId,
+        //             code,
+        //             grant_type: 'authorization_code',
+        //         }),
+        //         {
+        //             headers: {
+        //                 'Content-Type': 'application/x-www-form-urlencoded',
+        //                 secret_key: appSecret,
+        //             },
+        //         }
+        //     );
 
-            // console.log('TOKEN:', data);
+        //     const data = tokenRes.data;
 
-            sendStringMessage(
-                `refreshTokenZalo_${prefix}`,
-                JSON.stringify({ zaloOaId: zaloOaId, accountId: accountId, token: data })
-            );
+        //     // console.log('TOKEN:', data);
 
-            res.json(data);
-            return;
-        } catch (err: any) {
-            console.error(err.response?.data || err.message);
-            res.send('Error lấy token');
-            return;
-        }
+        //     sendStringMessage(`refreshTokenZalo_${prefix}`, JSON.stringify({zaloOaId: zaloOaId, accountId: accountId, token: data}))
+
+        //     res.json(data);
+        //     return;
+        // } catch (err: any) {
+        //     console.error(err.response?.data || err.message);
+        //     res.send('Error lấy token');
+        //     return;
+        // }
     };
 }
 
