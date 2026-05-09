@@ -1,3 +1,5 @@
+import { accountType_type } from '.';
+
 export interface GetReplyAccountBodyField {
     page: number;
     size: number;
@@ -43,5 +45,49 @@ export interface GetMembersBodyField {
 
 export interface AddMemberV1BodyField {
     addedById: number;
+    accountId: number;
+}
+
+export interface CreateAccountInformationBodyField {
+    accountType: accountType_type;
+    accountId: number;
+}
+
+export interface EditInforAccountBodyField {
+    id: number;
+    firstName: string;
+    lastName: string;
+    avatar: string;
+}
+
+export interface CheckForgetPasswordBodyField {
+    userName: string;
+    phone: string;
+}
+
+export interface ForgetPasswordBodyField {
+    userName: string;
+    password: string;
+    phone: string;
+}
+
+export interface GetMyRecommendBodyField {
+    accountId: number;
+}
+
+export interface AddYourRecommendBodyField {
+    yourCode: string;
+    accountId: number;
+}
+
+export interface GetMyAccountInformationBodyField {
+    accountId: number;
+}
+
+export interface LeaveAllAccountReceiveMessageBodyField {
+    accountId: number;
+}
+
+export interface LeaveAdminBodyField {
     accountId: number;
 }

@@ -12,8 +12,8 @@ export interface AccountField {
 }
 
 export interface AccountInformationField {
-    addedById: number;
-    accountType: string;
+    addedById: number | null;
+    accountType: accountType_enum;
     accountId: number;
 }
 
@@ -45,5 +45,11 @@ export interface PagedAccountField {
 export interface AccountReceiveMessageField {
     accountIdReceiveMessage: number | null;
     zaloOaId: number;
+    accountId: number;
+}
+
+export interface RecommendField {
+    myCode: string;
+    yourCode: string | null;
     accountId: number;
 }

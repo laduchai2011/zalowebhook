@@ -6,7 +6,7 @@ import { getEnv } from '@src/mode';
 import { myEnv } from '@src/mode/type';
 
 const VERIFY_TOKEN = process.env.ZALO_VERIFY_TOKEN!;
-const prefix = getEnv() === myEnv.Dev ? 'dev' : 'dev';
+const prefix = getEnv() === myEnv.Dev ? 'dev' : '';
 
 class Handle_Zalo_WebHook {
     getData = async (req: Request, res: Response) => {
@@ -42,36 +42,6 @@ class Handle_Zalo_WebHook {
 
         res.send(code);
         return;
-
-        // try {
-        //     const tokenRes = await axios.post(
-        //         'https://oauth.zaloapp.com/v4/access_token',
-        //         new URLSearchParams({
-        //             app_id: appId,
-        //             code,
-        //             grant_type: 'authorization_code',
-        //         }),
-        //         {
-        //             headers: {
-        //                 'Content-Type': 'application/x-www-form-urlencoded',
-        //                 secret_key: appSecret,
-        //             },
-        //         }
-        //     );
-
-        //     const data = tokenRes.data;
-
-        //     // console.log('TOKEN:', data);
-
-        //     sendStringMessage(`refreshTokenZalo_${prefix}`, JSON.stringify({zaloOaId: zaloOaId, accountId: accountId, token: data}))
-
-        //     res.json(data);
-        //     return;
-        // } catch (err: any) {
-        //     console.error(err.response?.data || err.message);
-        //     res.send('Error lấy token');
-        //     return;
-        // }
     };
 }
 

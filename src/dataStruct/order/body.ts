@@ -6,8 +6,8 @@ export interface OrdersFilterBodyField {
     moneyTo?: number;
     isPay?: boolean;
     phone?: string;
-    chatRoomId?: number;
-    zaloOaId?: number;
+    isDelete?: boolean;
+    chatRoomId: number;
     accountId: number;
 }
 
@@ -18,7 +18,6 @@ export interface CreateOrderBodyField {
     money: number;
     phone: string;
     chatRoomId: number;
-    zaloOaId: number;
     accountId: number;
 }
 
@@ -31,9 +30,8 @@ export interface UpdateOrderBodyField {
     accountId: number;
 }
 
-export interface GetMyOrderWithIdBodyField {
+export interface GetOrderWithIdBodyField {
     id: number;
-    accountId: number;
 }
 
 export interface CreateOrderStatusBodyField {
@@ -47,6 +45,8 @@ export interface GetAllOrderStatusBodyField {
     orderId: number;
 }
 
-export interface UpdateOrderPaidBodyField {
-    id: number;
+export interface GetOrdersWithPhoneBodyField {
+    page: number;
+    size: number;
+    phone: string;
 }
