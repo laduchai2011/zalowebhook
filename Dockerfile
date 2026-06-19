@@ -19,13 +19,11 @@ RUN npm install
 # Sao chép toàn bộ mã nguồn
 COPY . .
 
-COPY src/services/zalo_webhook/handle/TokenZaloOA/tokenDB.json /app/dist/src/services/zalo_webhook/handle/TokenZaloOA/tokenDB.json
-
 # Build TypeScript sang JavaScript
-RUN npm run build
+RUN npm run build_docker
 
 # Mở port (nếu app chạy trên 3000)
-EXPOSE 5001
+EXPOSE 5000
 
 # Chạy ứng dụng
 CMD ["node", "dist/src/index.js"]
