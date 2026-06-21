@@ -14,9 +14,9 @@ const mssql_config: my_interface['mssql']['config'] = isProduct
           password: process.env.MSSQL_SERVER_PASSWORD,
       }
     : {
-          host: '127.0.0.1',
+          host: '103.38.236.182',
           port: 1433,
-          database: 'zalo5k',
+          database: 'ztks',
           username: 'sa',
           password: '201195laducHai',
       };
@@ -29,9 +29,9 @@ const redis_config: my_interface['redis']['config'] = isProduct
           password: process.env.REDIS_SERVER_PASSWORD,
       }
     : {
-          host: '127.0.0.1',
+          host: '103.38.236.182',
           port: 6379,
-          username: 'zalo5k',
+          username: 'ztks',
           password: 'hai20111995',
       };
 
@@ -43,7 +43,7 @@ const rabbitmq_config: my_interface['redis']['config'] = isProduct
           password: process.env.RABBITMQ_SERVER_PASSWORD,
       }
     : {
-          host: '127.0.0.1',
+          host: '103.38.236.182',
           port: 5672,
           username: 'admin',
           password: 'admin123',
@@ -58,11 +58,11 @@ const mongo_config: my_interface['mongo']['config'] = isProduct
           database: process.env.MONGO_SERVER_DATABASE,
       }
     : {
-          host: '127.0.0.1',
+          host: '103.38.236.182',
           port: 27017,
           username: 'admin',
           password: 'admin123',
-          database: 'zalo5k',
+          database: 'ztks',
       };
 
 export { mssql_config, redis_config, rabbitmq_config, mongo_config };
