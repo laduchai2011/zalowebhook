@@ -2,6 +2,7 @@ export interface VideoTDBodyField {
     receiveId: string;
     oaid: string;
     name: string;
+    accountId: string;
 }
 
 export function isVideoTDBodyField(data: unknown): data is VideoTDBodyField {
@@ -10,6 +11,7 @@ export function isVideoTDBodyField(data: unknown): data is VideoTDBodyField {
         data !== null &&
         typeof (data as any).receiveId === 'string' &&
         typeof (data as any).oaid === 'string' &&
-        typeof (data as any).name === 'string'
+        typeof (data as any).name === 'string' &&
+        typeof (data as any).accountId === 'string'
     );
 }
