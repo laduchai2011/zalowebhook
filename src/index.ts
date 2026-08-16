@@ -16,7 +16,7 @@ import service_zalo_webhook from '@src/services/zalo_webhook';
 // import service_image from './services/image';
 
 const app: Express = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.use(cookieParser());
 app.use('/api', express.json());

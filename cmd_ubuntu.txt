@@ -1,5 +1,13 @@
 docker stop zalowebhook_container
 docker rm zalowebhook_container
 docker build -t zalowebhook .
-docker run -dit --name zalowebhook_container --network network_zalo_5kaquarium --restart=unless-stopped -p 5000:5000 --log-driver=json-file --log-opt max-size=10m --log-opt max-file=3 zalowebhook
+docker run -dit --name zalowebhook_container --network network_ztks --restart=unless-stopped -p 5000:5000 --log-driver=json-file --log-opt max-size=10m --log-opt max-file=3 zalowebhook
 docker logs -f zalowebhook_container
+
+
+
+docker stop zalowebhookdev_container
+docker rm zalowebhookdev_container
+docker build -t zalowebhookdev .
+docker run -dit --name zalowebhookdev_container --network network_ztks --restart=unless-stopped -p 5001:5001 --log-driver=json-file --log-opt max-size=10m --log-opt max-file=3 zalowebhookdev
+docker logs -f zalowebhookdev_container

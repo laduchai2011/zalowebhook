@@ -62,7 +62,7 @@ const mongo_config: my_interface['mongo']['config'] = isProduct
           port: 27017,
           username: 'admin',
           password: 'admin123',
-          database: 'ztks',
+          database: 'ztksdev',
       };
 
 export { mssql_config, redis_config, rabbitmq_config, mongo_config };
