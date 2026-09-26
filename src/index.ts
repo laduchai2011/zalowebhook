@@ -55,7 +55,7 @@ app.use('/api/hello', (req, res) => {
     res.send('hello');
 });
 
-app.use('/api/service_zalo_webhook', service_zalo_webhook);
+app.use('/api/service__zalo_webhook', service_zalo_webhook);
 // app.use('/api/service_image', service_image);
 
 app.listen(port, () => {

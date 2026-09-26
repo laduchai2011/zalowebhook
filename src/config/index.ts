@@ -5,20 +5,20 @@ dotenv.config();
 
 const isProduct = process.env.NODE_ENV === 'production';
 
-const mssql_config: my_interface['mssql']['config'] = isProduct
+const postgresql_config: my_interface['postgresql']['config'] = isProduct
     ? {
-          host: process.env.MSSQL_SERVER_HOST,
-          port: Number(process.env.MSSQL_SERVER_PORT),
-          database: process.env.MSSQL_SERVER_DATABASE,
-          username: process.env.MSSQL_SERVER_USERNAME,
-          password: process.env.MSSQL_SERVER_PASSWORD,
+          host: process.env.POSTGRES_HOST,
+          port: Number(process.env.POSTGRES_PORT),
+          database: process.env.POSTGRES_DB,
+          user: process.env.POSTGRES_USER,
+          password: process.env.POSTGRES_PASSWORD,
       }
     : {
           host: '103.38.236.182',
-          port: 1433,
-          database: 'ztks',
-          username: 'sa',
-          password: '201195laducHai',
+          port: 5432,
+          database: 'ztksdev',
+          user: 'postgres',
+          password: '2011Hai',
       };
 
 const redis_config: my_interface['redis']['config'] = isProduct
@@ -65,4 +65,4 @@ const mongo_config: my_interface['mongo']['config'] = isProduct
           database: 'ztksdev',
       };
 
-export { mssql_config, redis_config, rabbitmq_config, mongo_config };
+export { postgresql_config, redis_config, rabbitmq_config, mongo_config };
